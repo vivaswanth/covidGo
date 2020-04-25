@@ -50,12 +50,6 @@ export class LocationComponent implements OnInit {
         this.myPosition.longitude = this.dataService.myPosition.longitude;
         this.options.center = latLng(this.myPosition.latitude, this.myPosition.longitude);
 
-        this.dataService.geoFences.forEach(fence => {
-          this.layers.push(
-            circle([fence.latitude, fence.longitude], { radius: fence.radius }).bindPopup(`<b>${fence.notification.title}</b><p>${fence.notification.text}</p>`),
-            marker([fence.latitude, fence.longitude])
-            )
-        });
          }).catch((error) => {
            console.log(JSON.stringify(error));
          });
@@ -85,6 +79,12 @@ export class LocationComponent implements OnInit {
               radius: fence.radius,
               transitionType: fence.transitionType,
               notification: fence.notification}]
+              this.dataService.geoFences.forEach(fence => {
+                this.layers.push(
+                  circle([fence.latitude, fence.longitude], { radius: fence.radius }).bindPopup(`<b>${fence.notification.title}</b><p>${fence.notification.text}</p>`),
+                  marker([fence.latitude, fence.longitude])
+                  )
+              });
            },
            (err) => alert('Geofence failed to add' + JSON.stringify(err))
          );
