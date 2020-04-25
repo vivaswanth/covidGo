@@ -1,0 +1,128 @@
+<div class="container">
+    <div class="intro-header">
+        <ion-grid>
+            <ion-row>
+                <ion-col size="8">
+                    <h1>Covid-19</h1>
+                    <h5>We are in this together!</h5>
+                    <p>Follow basic steps and help the world defeat corona</p>
+                </ion-col>
+                <ion-col size="4">
+                    <img src="./../../../assets/img/stay-home.svg">
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+        
+    </div>
+
+    <div class="intro-content">
+        <ion-list>
+            <ion-item *ngIf="covidStatistics" lines="none">
+                <ion-grid>
+                    <ion-row>
+                        <h6><strong>Statistics</strong></h6>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <ion-card class="stats" color="primary">
+                                <ion-card-header>
+                                    <ion-card-subtitle>Infected</ion-card-subtitle>
+                                    <ion-card-title>{{covidStatistics.total_cases}}</ion-card-title>
+                                </ion-card-header>
+                            </ion-card>
+                        </ion-col>
+
+                        <ion-col>
+                            <ion-card class="stats" color="warning">
+                                <ion-card-header>
+                                    <ion-card-subtitle>Active Cases</ion-card-subtitle>
+                                    <ion-card-title>{{covidStatistics.total_active_cases}}</ion-card-title>
+                                </ion-card-header>
+                            </ion-card>
+                        </ion-col>
+                    </ion-row>
+
+                    <ion-row>
+                        <ion-col>
+                            <ion-card class="stats" color="success">
+                                <ion-card-header>
+                                    <ion-card-subtitle>Cured</ion-card-subtitle>
+                                    <ion-card-title>{{covidStatistics.total_recovered}}</ion-card-title>
+                                </ion-card-header>
+                            </ion-card>
+                        </ion-col>
+
+                        <ion-col>
+                            <ion-card class="stats" color="danger">
+                                <ion-card-header>
+                                    <ion-card-subtitle>Deceased</ion-card-subtitle>
+                                    <ion-card-title>{{covidStatistics.total_deaths}}</ion-card-title>
+                                </ion-card-header>
+                            </ion-card>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+
+            <ion-item lines="none">
+                <ion-grid>
+                    <ion-row>
+                        <h6><strong>Symptoms</strong></h6>
+                    </ion-row>
+                    <ion-row>
+                        <div class="symptoms-container">
+                            <ion-card class="symptoms">
+                                <ion-item lines="none">
+                                    <img src="./../../../assets/img/symptoms/fever.svg">
+                                    <div>
+                                        <h5>High Fever</h5>
+                                        <p>Continuous fever lasting 3-10 days over 100 degrees F.</p>
+                                    </div>
+                                </ion-item>
+                            </ion-card>
+                            <ion-card class="symptoms">
+                                <ion-item lines="none">
+                                    <img src="./../../../assets/img/symptoms/cough.svg">
+                                    <div>
+                                        <h5>Dry cough</h5>
+                                        <p>Cough without cold, body aches and pains.</p>
+                                    </div>
+                                </ion-item>
+                            </ion-card>
+                            <ion-card class="symptoms">
+                                <ion-item lines="none">
+                                    <img src="./../../../assets/img/symptoms/sore-throat.svg">
+                                    <div>
+                                        <h5>Difficulty breathing</h5>
+                                        <p>Tiredness and difficult to breath, sore throat.</p>
+                                    </div>
+                                </ion-item>
+                            </ion-card>
+                        </div>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+
+            <ion-item lines="none">
+                <ion-grid>
+                    <ion-row>
+                        <h6><strong>Govt. updates</strong></h6>
+                    </ion-row>
+                    <ion-row>
+                        <div class="updates-container">
+                            <ion-card class="updates">
+                                <ion-item lines="none">
+                                    
+                                    <div>
+                                        <h5>Need to add</h5>
+                                        <p>youtube vides from pm modi, who videos etc etc need to be added.</p>
+                                    </div>
+                                </ion-item>
+                            </ion-card>
+                        </div>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+        </ion-list>
+    </div>
+</div>

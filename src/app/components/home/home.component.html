@@ -1,0 +1,29 @@
+<ion-app>    
+    <ion-content fullscreen class="ion-padding">        
+        <ion-router-outlet id="main-content"></ion-router-outlet>   
+    </ion-content>
+    
+    <ion-tabs>
+        <ion-tab-bar slot="bottom">
+            <ion-tab-button tab="landing">
+                <ion-icon name="home"></ion-icon>
+                <ion-label>Home</ion-label>
+            </ion-tab-button>
+        
+            <ion-tab-button tab="location">
+                <ion-icon name="location"></ion-icon>
+                <ion-label>Location</ion-label>
+            </ion-tab-button>
+        
+            <ion-tab-button tab="habits">
+                <ion-icon name="fitness"></ion-icon>
+                <ion-label>Habits</ion-label>
+            </ion-tab-button>
+
+            <ion-tab-button tab="health">
+                <ion-icon name="pulse"></ion-icon>
+                <ion-label>precautions</ion-label>
+            </ion-tab-button>
+        </ion-tab-bar>
+    </ion-tabs>
+</ion-app>
