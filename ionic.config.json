@@ -1,0 +1,7 @@
+{
+  "name": "covidGo",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
