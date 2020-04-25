@@ -11,6 +11,7 @@ export class DataService {
     latitude:any;
     longitude:any;
   }
+  public places:string[] = ['Kukatpally','Gachibowli','Secunderabad','Nampally'];
 
   constructor() { }
 
