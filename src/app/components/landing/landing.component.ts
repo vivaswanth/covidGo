@@ -49,4 +49,8 @@ export class LandingComponent implements OnInit {
       }
     });
   }
+
+  public redirectLiveHelpDesk() {
+    window.location.replace("https://wa.me/919013151515");
+  }
 }

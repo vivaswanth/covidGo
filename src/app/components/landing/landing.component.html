@@ -17,17 +17,17 @@
 
     <div class="intro-content">
         <ion-list>
-            <ion-item *ngIf="covidStatistics" lines="none">
+            <ion-item lines="none">
                 <ion-grid>
                     <ion-row>
-                        <h6><strong>Statistics</strong></h6>
+                        <h6><strong></strong></h6>
                     </ion-row>
                     <ion-row>
                         <ion-col>
                             <ion-card class="stats" color="primary">
                                 <ion-card-header>
-                                    <ion-card-subtitle>Infected</ion-card-subtitle>
-                                    <ion-card-title>{{covidStatistics.total_cases}}</ion-card-title>
+                                    <ion-card-title>Fake vs Real</ion-card-title>
+                                    <ion-card-subtitle>Mythbusters from who</ion-card-subtitle>
                                 </ion-card-header>
                             </ion-card>
                         </ion-col>
@@ -35,8 +35,8 @@
                         <ion-col>
                             <ion-card class="stats" color="warning">
                                 <ion-card-header>
-                                    <ion-card-subtitle>Active Cases</ion-card-subtitle>
-                                    <ion-card-title>{{covidStatistics.total_active_cases}}</ion-card-title>
+                                    <ion-card-title>Congestion</ion-card-title>
+                                    <ion-card-subtitle>Places near you are congested</ion-card-subtitle>
                                 </ion-card-header>
                             </ion-card>
                         </ion-col>
@@ -46,8 +46,8 @@
                         <ion-col>
                             <ion-card class="stats" color="success">
                                 <ion-card-header>
-                                    <ion-card-subtitle>Cured</ion-card-subtitle>
-                                    <ion-card-title>{{covidStatistics.total_recovered}}</ion-card-title>
+                                    <ion-card-title>Check now</ion-card-title>
+                                    <ion-card-subtitle>Covid 19 symptoms</ion-card-subtitle>
                                 </ion-card-header>
                             </ion-card>
                         </ion-col>
@@ -55,11 +55,51 @@
                         <ion-col>
                             <ion-card class="stats" color="danger">
                                 <ion-card-header>
-                                    <ion-card-subtitle>Deceased</ion-card-subtitle>
-                                    <ion-card-title>{{covidStatistics.total_deaths}}</ion-card-title>
+                                    <ion-card-subtitle>Redzones</ion-card-subtitle>
+                                    <ion-card-title>you are not in red zone</ion-card-title>
                                 </ion-card-header>
                             </ion-card>
                         </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+
+            <ion-item lines="none">
+                <ion-grid>
+                    <ion-row>
+                        <h6><strong>Prevention</strong></h6>
+                    </ion-row>
+                    <ion-row>
+                        <div class="symptoms-container">
+                            <ion-card class="symptoms">
+                                <ion-item lines="none">
+                                    <img src="./../../../assets/img/precautions/handwash.svg">
+                                    <div>
+                                        <h5>20 secs Hand wash</h5>
+                                        <p>Use a sanitizer or a soap to wash your hands frequently.</p>
+                                    </div>
+                                </ion-item>
+                            </ion-card>
+                            <ion-card class="symptoms">
+                                <ion-item lines="none">
+                                    <img src="./../../../assets/img/precautions/no-handshake.svg">
+                                    <div>
+                                        <h5>Avoid close contact</h5>
+                                        <p>Maintain atleast 1-3 meters away if going out.</p>
+                                    </div>
+                                </ion-item>
+                            </ion-card>
+                            <ion-card class="symptoms">
+                                <ion-item lines="none">
+                                    <img src="./../../../assets/img/precautions/mask.svg">
+                                    <div>
+                                        <h5>Wear a mask</h5>
+                                        <p>wear a reusable mask or put a kerchief to cover your face.</p>
+                                    </div>
+                                </ion-item>
+                            </ion-card>
+                            
+                        </div>
                     </ion-row>
                 </ion-grid>
             </ion-item>

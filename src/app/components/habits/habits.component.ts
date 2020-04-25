@@ -1,3 +1,4 @@
+import { DataFetchService } from 'src/app/services/data-fetch.service';
 import { Component, OnInit } from "@angular/core";
 
 @Component({
@@ -8,11 +9,13 @@ import { Component, OnInit } from "@angular/core";
 
 export class HabitsComponent implements OnInit {
   
-  constructor() { 
+  public habits;
+
+  constructor(private dataFetchService: DataFetchService) { 
 
   }
 
   ngOnInit() {
-
+    this.habits = this.dataFetchService.fetchHabits();
   }
 }

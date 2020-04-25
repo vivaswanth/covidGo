@@ -5,6 +5,7 @@ import { HomeComponent } from './components/home/home.component';
 import { LandingComponent } from './components/landing/landing.component';
 import { LocationComponent } from './components/location/location.component';
 import { HabitsComponent } from './components/habits/habits.component';
+import { StatisticsComponent } from './components/statistics/statistics.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,7 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: '/home/landing', pathMatch: 'full'},
       { path: 'landing', component: LandingComponent },
+      { path: 'statistics', component: StatisticsComponent },
       { path: 'location', component: LocationComponent },
       { path: 'habits', component: HabitsComponent },
     ]

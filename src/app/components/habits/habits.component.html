@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="intro-header">
+        <ion-grid>
+            <ion-row>
+                <ion-col size="8">
+                    <h1>Habits</h1>
+                    <h5>Stay motivated</h5>
+                    <p>Hand picked activites to keep you stay on track</p>
+                </ion-col>
+                <ion-col size="4">
+                    <img src="./../../../assets/img/habits/television.svg">
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+        
+    </div>
+
+    <div class="intro-content">
+        <ion-list>
+            <ion-item lines="none" *ngFor="let habit of habits">
+                <ion-avatar slot="start" *ngIf="habit.habitImage">
+                    <img src="./../../../assets/img/{{habit.habitImage}}">
+                </ion-avatar>
+                <ion-label>
+                    <h3>{{habit.habitTitle}}</h3>
+                    <p>{{habit.habitDescription}}...</p>
+                </ion-label>
+            </ion-item>
+        </ion-list>
+    </div>
+</div>
