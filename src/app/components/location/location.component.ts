@@ -45,7 +45,10 @@ export class LocationComponent implements OnInit {
 
         this.geolocation.getCurrentPosition().then((resp) => {
           this.dataService.myPosition = {latitude : resp.coords.latitude, longitude: resp.coords.longitude}
-          this.addGeofence(1, 123-323, resp.coords.latitude, resp.coords.longitude, 'Hyderabad', 'Be careful');
+          this.addGeofence(1, 123-323, 17.4875, 78.3953, 'Lingampally', 'Be careful');
+          this.addGeofence(2, 323-333, 17.3861, 78.4639, 'Nampally', 'Be careful');
+          this.addGeofence(3, 223-333, 17.4401, 78.3489, 'Gachibowli', 'Be careful');
+          this.addGeofence(4, 423-333, 17.4399, 78.4983, 'Nampally', 'Be careful');
           this.myPosition.latitude = this.dataService.myPosition.latitude;
         this.myPosition.longitude = this.dataService.myPosition.longitude;
         this.options.center = latLng(this.myPosition.latitude, this.myPosition.longitude);
@@ -60,7 +63,7 @@ export class LocationComponent implements OnInit {
           id: id,
           latitude: lat,
           longitude: lng,
-          radius: 50000,
+          radius: 4000,
           transitionType: 2,
           notification: {
               id: idx,
@@ -72,7 +75,6 @@ export class LocationComponent implements OnInit {
       
         this.geofence.addOrUpdate(fence).then(
            () => {
-            alert('Geofence added');
             this.dataService.geoFences = [{id: fence.id,
               latitude: fence.latitude,
               longitude: fence.longitude,
@@ -100,15 +102,7 @@ export class LocationComponent implements OnInit {
       }
 
       setLayer(): void{
-        this.layers.push(marker([this.myPosition.latitude, this.myPosition.longitude], {
-          autoPan: true,
-          icon: icon({
-            iconSize: [ 18, 18 ],
-            //iconAnchor: [ 10, 10],
-            iconUrl: 'assets/marker.png',
-            //shadowUrl: 'assets/marker-shadow.png'
-        })
-        }), circle([this.myPosition.latitude, this.myPosition.longitude], { radius: 20}).setStyle({
+        this.layers.push(circle([this.myPosition.latitude, this.myPosition.longitude], { radius: 5}).setStyle({
           fillColor: '#f21818',
           color: '#f21818'
         })
