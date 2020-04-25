@@ -1,26 +1,19 @@
-<ion-header>
-    <ion-row>
-      <ion-col text-start padding-top>
-        <ion-title>Covid Zones</ion-title>
-      </ion-col>
-      <ion-col text-end>
-        <ion-button (click)="loadMap()" shape="round" fill="outline">
-          <ion-icon slot="start" name="refresh"></ion-icon>
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-header>
-  <ion-content class="ion-padding">
-   
-    <div class="map-wrapper">
-      <div id="map_center">
-        <ion-icon name="locate"></ion-icon>
-      </div>
-      <div #map id="map"></div>
-    </div>
-    <div id="address">
-      <span>{{address}}</span>
-    </div>
-   
-   
-  </ion-content>
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Covid Zone</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="map" style="height: 80vh;" leaflet [(leafletCenter)]="center"
+    [leafletOptions]="options" [leafletLayersControl]="layersControl">
+    <div *ngFor="let l of layers" [leafletLayer]="l"></div>
+  </div>
+</ion-content>
+
+<ion-footer>
+  
+</ion-footer>

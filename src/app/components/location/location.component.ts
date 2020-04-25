@@ -1,7 +1,9 @@
 import { Component, OnInit, ElementRef, ViewChild } from "@angular/core";
 import { Geofence } from '@ionic-native/geofence/ngx';
-import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@ionic-native/native-geocoder/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { tileLayer, latLng, circle, marker, MapOptions, Icon, icon } from 'leaflet';
+import { coords } from '../../models/geofence.interface';
+import { DataService } from '../../services/data.service';
 
 declare var google;
 
@@ -13,99 +15,104 @@ declare var google;
 
 export class LocationComponent implements OnInit {
   
-  @ViewChild('map', {static:false}) mapElement: ElementRef;
-  map: any;
-  address:string;
-
-  constructor(private geofence: Geofence, private geolocation: Geolocation, private nativeGeocoder: NativeGeocoder) {
-    
-  }
-
-  ngOnInit() {
-    this.loadMap();
-  }
-
-  loadMap() {
-    this.geolocation.getCurrentPosition().then((resp) => {
+  myPosition: coords;
+      layers = [];
+      layersControl;
+      options: MapOptions;
+      map: boolean;
+      center;
       
-      let latLng = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
-      let mapOptions = {
-      center: latLng,
-      zoom: 15,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    }
-    this.getAddressFromCoords(resp.coords.latitude, resp.coords.longitude);
+      constructor(
+        private dataService : DataService, private geofence: Geofence, private geolocation: Geolocation
+      ) { }
 
-    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+      async ngOnInit() {
+        this.map = false;
+        this.myPosition = {
+          accuracy: 0,
+          latitude: 0,
+          longitude: 0
+        };
 
-    this.map.addListener('tilesloaded', () => {
-      console.log('accuracy',this.map);
-      this.getAddressFromCoords(this.map.center.lat(), this.map.center.lng())
-    });
-      this.addGeofence(1, 123-323, resp.coords.latitude, resp.coords.longitude, 'Hyderabad', 'home');
-     }).catch((error) => {
-       console.log('Error getting location : ' + JSON.stringify(error));
-     });
-  }
-
-  getAddressFromCoords(lattitude, longitude) {
-    console.log("getAddressFromCoords "+lattitude+" "+longitude);
-    let options: NativeGeocoderOptions = {
-      useLocale: true,
-      maxResults: 5
-    };
-
-    this.nativeGeocoder.reverseGeocode(lattitude, longitude, options)
-      .then((result: NativeGeocoderResult[]) => {
-        this.address = "";
-        let responseAddress = [];
-        for (let [key, value] of Object.entries(result[0])) {
-          if(value.length>0)
-          responseAddress.push(value);
-
-        }
-        responseAddress.reverse();
-        for (let value of responseAddress) {
-          this.address += value+", ";
-        }
-        this.address = this.address.slice(0, -2);
-      })
-      .catch((error: any) =>{ 
-        this.address = "Address Not Available!";
-        console.log("Address Not Available! : " + JSON.stringify(error));
-      });
-
-  }
-
-  private addGeofence(id, idx, lat, lng, place, desc) {
-    let fence = {
-      id: id,
-      latitude: lat,
-      longitude: lng,
-      radius: 50,
-      transitionType: 2,
-      notification: {
-          id: idx,
-          title: 'You crossed ' + place,
-          text: desc,
-          openAppOnClick: true
-      }
-    }
-  
-    this.geofence.addOrUpdate(fence).then(
-       () => {
-        console.log('Geofence added');
+        this.options = {
+          layers: [
+            tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '...' })
+          ],
+          zoom: 13,
+          center: null
+        };
         
-       },
-       (err) => console.log('Geofence failed to add' + JSON.stringify(err))
-     );
 
-     this.geofence.onTransitionReceived().subscribe((res) => {
-      console.log('Notified');
-    });
-  }
+        this.geolocation.getCurrentPosition().then((resp) => {
+          this.dataService.myPosition = {latitude : resp.coords.latitude, longitude: resp.coords.longitude}
+          this.addGeofence(1, 123-323, resp.coords.latitude, resp.coords.longitude, 'Hyderabad', 'Be careful');
+          this.myPosition.latitude = this.dataService.myPosition.latitude;
+        this.myPosition.longitude = this.dataService.myPosition.longitude;
+        this.options.center = latLng(this.myPosition.latitude, this.myPosition.longitude);
 
-  addFence() {
-    console.log();
+        this.dataService.geoFences.forEach(fence => {
+          this.layers.push(
+            circle([fence.latitude, fence.longitude], { radius: fence.radius }).bindPopup(`<b>${fence.notification.title}</b><p>${fence.notification.text}</p>`),
+            marker([fence.latitude, fence.longitude])
+            )
+        });
+         }).catch((error) => {
+           console.log(JSON.stringify(error));
+         });
+      }
+
+      private addGeofence(id, idx, lat, lng, place, desc) {
+        let fence = {
+          id: id,
+          latitude: lat,
+          longitude: lng,
+          radius: 50000,
+          transitionType: 2,
+          notification: {
+              id: idx,
+              title: 'You crossed ' + place,
+              text: desc,
+              openAppOnClick: true
+          }
+        }
+      
+        this.geofence.addOrUpdate(fence).then(
+           () => {
+            alert('Geofence added');
+            this.dataService.geoFences = [{id: fence.id,
+              latitude: fence.latitude,
+              longitude: fence.longitude,
+              radius: fence.radius,
+              transitionType: fence.transitionType,
+              notification: fence.notification}]
+           },
+           (err) => alert('Geofence failed to add' + JSON.stringify(err))
+         );
+    
+         this.geofence.onTransitionReceived().subscribe((res) => {
+          alert('Notified');
+        });
+
+        setTimeout(() => {
+          this.map = true;
+          this.setLayer();
+        }, 500);
+      }
+
+      setLayer(): void{
+        this.layers.push(marker([this.myPosition.latitude, this.myPosition.longitude], {
+          autoPan: true,
+          icon: icon({
+            iconSize: [ 18, 18 ],
+            //iconAnchor: [ 10, 10],
+            iconUrl: 'assets/marker.png',
+            //shadowUrl: 'assets/marker-shadow.png'
+        })
+        }), circle([this.myPosition.latitude, this.myPosition.longitude], { radius: 20}).setStyle({
+          fillColor: '#f21818',
+          color: '#f21818'
+        })
+        );
+      }
+
   }
-}
