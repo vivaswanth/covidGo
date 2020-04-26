@@ -22,7 +22,6 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { StatisticsComponent } from './components/statistics/statistics.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +32,8 @@ import { StatisticsComponent } from './components/statistics/statistics.componen
     LocationComponent,
     HabitsComponent,
   ],
-  entryComponents: [],
+  entryComponents: [
+  ],
   imports: [
     BrowserModule,
     FormsModule,

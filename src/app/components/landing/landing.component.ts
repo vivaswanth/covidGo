@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { DataFetchService } from 'src/app/services/data-fetch.service';
+import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: "app-landing",
@@ -17,7 +19,7 @@ export class LandingComponent implements OnInit {
     speed: 400
   };
 
-  constructor(private dataFetchService: DataFetchService) {
+  constructor(private dataFetchService: DataFetchService, private router: Router, public modalController: ModalController) {
 
   }
 
@@ -52,5 +54,13 @@ export class LandingComponent implements OnInit {
 
   public redirectLiveHelpDesk() {
     window.location.replace("https://wa.me/919013151515");
+  }
+
+  public showRedZones() {
+    this.router.navigate(['/location']);
+  }
+
+  async presentSymptomChecker() {
+    window.location.replace("https://symptomate.com/diagnosis/en/#0-66");
   }
 }

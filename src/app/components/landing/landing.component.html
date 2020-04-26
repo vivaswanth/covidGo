@@ -20,7 +20,7 @@
             <ion-item lines="none">
                 <ion-grid>
                     <ion-row>
-                        <h6><strong></strong></h6>
+                        <h6 (click)="redirectLiveHelpDesk()"><strong>Click here to talk to govt. expert</strong> <ion-icon name="logo-whatsapp" style="vertical-align: middle; margin-top: -10px; margin-left: 10px;"></ion-icon></h6>
                     </ion-row>
                     <ion-row>
                         <ion-col>
@@ -44,7 +44,7 @@
 
                     <ion-row>
                         <ion-col>
-                            <ion-card class="stats" color="success">
+                            <ion-card class="stats" color="success" (click)="presentSymptomChecker()">
                                 <ion-card-header>
                                     <ion-card-title>Check now</ion-card-title>
                                     <ion-card-subtitle>Covid 19 symptoms</ion-card-subtitle>
@@ -53,10 +53,10 @@
                         </ion-col>
 
                         <ion-col>
-                            <ion-card class="stats" color="danger">
+                            <ion-card class="stats" color="danger" (click)="showRedZones()">
                                 <ion-card-header>
-                                    <ion-card-subtitle>Redzones</ion-card-subtitle>
-                                    <ion-card-title>you are not in red zone</ion-card-title>
+                                    <ion-card-title>Redzones</ion-card-title>
+                                    <ion-card-subtitle>You are not in red zone</ion-card-subtitle>
                                 </ion-card-header>
                             </ion-card>
                         </ion-col>
