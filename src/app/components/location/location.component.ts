@@ -20,7 +20,7 @@ export class LocationComponent implements OnInit {
   options: MapOptions;
   showMap: boolean;
   center;
-  categories = ['Red Zones', 'Hospitals', 'Grocery Stores', 'Charity Zones'];
+  categories = ['Red Zones', 'Hospitals', 'Grocery Stores', 'Medical Stores', 'Charity Zones'];
   category = this.categories[0];
 
   constructor(
@@ -79,6 +79,7 @@ export class LocationComponent implements OnInit {
   private addAllFences(options, i, place) {
     this.nativeGeocoder.forwardGeocode(place.name, options)
       .then((result: NativeGeocoderResult[]) => {
+        console.log('redzone : ' + place + ' ' + result[0].latitude + ' : ' + result[0].longitude);
         this.addGeofence(i + 1, 123 - 323 + i, result[0].latitude, result[0].longitude, place.name, 'Covid cases : ' + place.count);
       })
       .catch((error: any) => {
@@ -170,7 +171,8 @@ export class LocationComponent implements OnInit {
           this.options.center = latLng(this.myPosition.latitude, this.myPosition.longitude);
           var i = 0;
           places.forEach(place => {
-            this.addMarkerPoints(geoCoderOptions, i, place, addressResult[0].subLocality);
+            //this.addMarkerPoints(geoCoderOptions, i, place, addressResult[0].subLocality);
+            this.addMarkerPoints(geoCoderOptions, i, place, 'Bandlaguda Jagir');
             i++;
           })
         })
@@ -202,6 +204,8 @@ export class LocationComponent implements OnInit {
               address += value + ", ";
             }
             address = address.slice(0, -2);
+            console.log(this.category + ' : ' + place + ' ' + result[0].latitude + ' : ' + result[0].longitude);
+            console.log(address);
             this.layers.push(
               marker([parseFloat(result[0].latitude), parseFloat(result[0].longitude)]).bindPopup(`<b>${place} <span style="color:green;">(Open)</span></b><p>${address}</p>`)
             )
@@ -256,6 +260,8 @@ export class LocationComponent implements OnInit {
     } else if (this.category === this.categories[2]) {
       this.loadGoogleMapMock(this.dataService.groceryStoresMock);
     } else if (this.category === this.categories[3]) {
+      this.loadGoogleMapMock(this.dataService.medicalStoresMock);
+    } else if (this.category === this.categories[4]) {
       this.loadGoogleMapMock(this.dataService.charityZonesMock);
     }
   }
