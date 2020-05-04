@@ -20,7 +20,7 @@ export class LocationComponent implements OnInit {
   options: MapOptions;
   showMap: boolean;
   center;
-  categories = ['Red Zones', 'Hospitals', 'Grocery Stores', 'Medical Stores', 'Charity Zones'];
+  categories = ['Red Zones', 'Hospitals', 'Grocery Stores', 'Charity Zones'];
   category = this.categories[0];
 
   constructor(
@@ -45,7 +45,8 @@ export class LocationComponent implements OnInit {
       center: null
     };
 
-    this.loadRedZones();
+    //this.loadRedZones();
+    this.loadReadZonesMock();
 
   }
 
@@ -219,5 +220,68 @@ export class LocationComponent implements OnInit {
   }
 
 
+  private loadReadZonesMock() {
+    this.layers = [];
+    // this.geofence.initialize().then(()=>{
+    this.geolocation.getCurrentPosition().then((resp) => {
+      this.myPosition.latitude = resp.coords.latitude;
+      this.myPosition.longitude = resp.coords.longitude;
+      this.options.center = latLng(this.myPosition.latitude, this.myPosition.longitude);
+      var i = 0;
+      this.dataService.localitiesMock.forEach(place => {
+        this.layers.push(
+          circle([place.latitude, place.longitude], { radius: 3000 }).bindPopup(`<b>${place.name}</b><p>'Covid cases : '${place.count}</p>`)
+            .setStyle({
+              fillColor: '#f21818',
+              color: '#f21818'
+            })
+        )
+        i++;
+      })
+      setTimeout(() => {
+        this.showMap = true;
+        this.setLayer();
+      }, 500);
+    }).catch((error) => {
+      console.log(JSON.stringify(error));
+    });
+  }
+
+  categoryChangeMock(evtObj) {
+    this.category = evtObj.detail.value;
+    if (this.category === this.categories[0]) {
+      this.loadReadZonesMock();
+    } else if (this.category === this.categories[1]) {
+      this.loadGoogleMapMock(this.dataService.hospitalsMock);
+    } else if (this.category === this.categories[2]) {
+      this.loadGoogleMapMock(this.dataService.groceryStoresMock);
+    } else if (this.category === this.categories[3]) {
+      this.loadGoogleMapMock(this.dataService.charityZonesMock);
+    }
+  }
+
+  private loadGoogleMapMock(places: any[]) {
+    this.layers = [];
+    this.geolocation.getCurrentPosition().then((resp) => {
+      this.myPosition.latitude = resp.coords.latitude;
+          this.myPosition.longitude = resp.coords.longitude;
+          this.options.center = latLng(this.myPosition.latitude, this.myPosition.longitude);
+          places.forEach(place => {
+            this.addMarkerPointsMock(place);
+          })
+          setTimeout(() => {
+            this.showMap = true;
+            this.setLayer();
+          }, 500);
+    }).catch((error) => {
+      console.log(JSON.stringify(error));
+    });
+  }
+
+  private addMarkerPointsMock(place) {
+    this.layers.push(
+      marker([place.latitude, place.longitude]).bindPopup(`<b>${place.name} <span style="color:green;">(Open)</span></b><p>${place.address}</p>`)
+    )
+  }
 
 }
