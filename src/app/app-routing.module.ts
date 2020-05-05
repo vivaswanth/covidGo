@@ -6,6 +6,7 @@ import { LandingComponent } from './components/landing/landing.component';
 import { LocationComponent } from './components/location/location.component';
 import { HabitsComponent } from './components/habits/habits.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
+import { FakeComponent } from './components/fake/fake.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
       { path: 'statistics', component: StatisticsComponent },
       { path: 'location', component: LocationComponent },
       { path: 'habits', component: HabitsComponent },
+      { path: 'fake', component: FakeComponent }
     ]
   }
 ];
