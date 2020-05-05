@@ -227,14 +227,36 @@ export class LocationComponent implements OnInit {
   private loadReadZonesMock() {
     this.layers = [];
     // this.geofence.initialize().then(()=>{
-    this.geolocation.getCurrentPosition().then((resp) => {
-      this.myPosition.latitude = resp.coords.latitude;
-      this.myPosition.longitude = resp.coords.longitude;
+    // this.geolocation.getCurrentPosition().then((resp) => {
+    //   this.myPosition.latitude = resp.coords.latitude;
+    //   this.myPosition.longitude = resp.coords.longitude;
+    //   this.options.center = latLng(this.myPosition.latitude, this.myPosition.longitude);
+    //   var i = 0;
+    //   this.dataService.localitiesMock.forEach(place => {
+    //     this.layers.push(
+    //       circle([place.latitude, place.longitude], { radius: 3000 }).bindPopup(`<b>${place.name}</b><p>'Covid cases : '${place.count}</p>`)
+    //         .setStyle({
+    //           fillColor: '#f21818',
+    //           color: '#f21818'
+    //         })
+    //     )
+    //     i++;
+    //   })
+    //   setTimeout(() => {
+    //     this.showMap = true;
+    //     this.setLayer();
+    //   }, 500);
+    // }).catch((error) => {
+    //   console.log(JSON.stringify(error));
+    // });
+
+    this.myPosition.latitude = 17.3662139;
+      this.myPosition.longitude = 78.3974932;
       this.options.center = latLng(this.myPosition.latitude, this.myPosition.longitude);
       var i = 0;
       this.dataService.localitiesMock.forEach(place => {
         this.layers.push(
-          circle([place.latitude, place.longitude], { radius: 3000 }).bindPopup(`<b>${place.name}</b><p>'Covid cases : '${place.count}</p>`)
+          circle([place.latitude, place.longitude], { radius: 2000 }).bindPopup(`<b>${place.name}</b><p>'Covid cases : '${place.count}</p>`)
             .setStyle({
               fillColor: '#f21818',
               color: '#f21818'
@@ -246,9 +268,6 @@ export class LocationComponent implements OnInit {
         this.showMap = true;
         this.setLayer();
       }, 500);
-    }).catch((error) => {
-      console.log(JSON.stringify(error));
-    });
   }
 
   categoryChangeMock(evtObj) {
@@ -268,9 +287,22 @@ export class LocationComponent implements OnInit {
 
   private loadGoogleMapMock(places: any[]) {
     this.layers = [];
-    this.geolocation.getCurrentPosition().then((resp) => {
-      this.myPosition.latitude = resp.coords.latitude;
-          this.myPosition.longitude = resp.coords.longitude;
+    // this.geolocation.getCurrentPosition().then((resp) => {
+    //   this.myPosition.latitude = resp.coords.latitude;
+    //       this.myPosition.longitude = resp.coords.longitude;
+    //       this.options.center = latLng(this.myPosition.latitude, this.myPosition.longitude);
+    //       places.forEach(place => {
+    //         this.addMarkerPointsMock(place);
+    //       })
+    //       setTimeout(() => {
+    //         this.showMap = true;
+    //         this.setLayer();
+    //       }, 500);
+    // }).catch((error) => {
+    //   console.log(JSON.stringify(error));
+    // });
+    this.myPosition.latitude = 17.3662139;
+      this.myPosition.longitude = 78.3974932;
           this.options.center = latLng(this.myPosition.latitude, this.myPosition.longitude);
           places.forEach(place => {
             this.addMarkerPointsMock(place);
@@ -279,9 +311,6 @@ export class LocationComponent implements OnInit {
             this.showMap = true;
             this.setLayer();
           }, 500);
-    }).catch((error) => {
-      console.log(JSON.stringify(error));
-    });
   }
 
   private addMarkerPointsMock(place) {
