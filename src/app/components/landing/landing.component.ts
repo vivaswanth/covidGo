@@ -57,7 +57,11 @@ export class LandingComponent implements OnInit {
   }
 
   public showRedZones() {
-    this.router.navigate(['/location']);
+    this.router.navigate(['/home/location']);
+  }
+
+  public showFakeNews() {
+    this.router.navigate(['/home/fake']);
   }
 
   async presentSymptomChecker() {

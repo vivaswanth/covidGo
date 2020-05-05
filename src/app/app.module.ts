@@ -21,6 +21,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { StatisticsComponent } from './components/statistics/statistics.component';
+import { FakeComponent } from './components/fake/fake.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { StatisticsComponent } from './components/statistics/statistics.componen
     StatisticsComponent,
     LocationComponent,
     HabitsComponent,
+    FakeComponent
   ],
   entryComponents: [
   ],

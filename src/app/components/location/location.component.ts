@@ -256,7 +256,7 @@ export class LocationComponent implements OnInit {
       var i = 0;
       this.dataService.localitiesMock.forEach(place => {
         this.layers.push(
-          circle([place.latitude, place.longitude], { radius: 2000 }).bindPopup(`<b>${place.name}</b><p>'Covid cases : '${place.count}</p>`)
+          circle([place.latitude, place.longitude], { radius: 3000 }).bindPopup(`<b>${place.name}</b><p>'Covid cases : '${place.count}</p>`)
             .setStyle({
               fillColor: '#f21818',
               color: '#f21818'
@@ -314,9 +314,15 @@ export class LocationComponent implements OnInit {
   }
 
   private addMarkerPointsMock(place) {
-    this.layers.push(
-      marker([place.latitude, place.longitude]).bindPopup(`<b>${place.name} <span style="color:green;">(Open)</span></b><p>${place.address}</p>`)
+    if(this.category === this.categories[4]) {
+      this.layers.push(
+        marker([place.latitude, place.longitude]).bindPopup(`<b>${place.name}</b><p>${place.address}</p>`)
     )
+    } else {
+      this.layers.push(
+        marker([place.latitude, place.longitude]).bindPopup(`<b>${place.name} <span style="color:green;">(Open)</span></b><p>${place.address}</p>`)
+    )
+    }
   }
 
 }

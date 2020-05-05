@@ -18,6 +18,8 @@ export class StatisticsComponent implements OnInit {
     initialSlide: 1,
     speed: 400
   };
+
+  public statsImages : string[] = ['./../../../assets/img/photo-1.png', './../../../assets/img/photo-2.png', './../../../assets/img/photo-3.png', './../../../assets/img/photo-4.png'];
   
   constructor(private dataFetchService: DataFetchService) {
 

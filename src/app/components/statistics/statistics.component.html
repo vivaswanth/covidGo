@@ -70,19 +70,13 @@
                     </ion-row>
                 </ion-grid>
             </ion-item>
-
-            <ion-item lines="none">
-                <ion-grid>
-                    <ion-row>
-                        <h6><strong>Cases</strong></h6>
-                    </ion-row>
-                    <ion-row>
-                        
-                    </ion-row>
-                </ion-grid>
-            </ion-item>
-
-            
         </ion-list>
+        <ion-list>
+            <ion-item *ngFor="let item of statsImages">
+              <!-- <ion-thumbnail slot="start"> -->
+                <ion-img [src]="item"></ion-img>
+              <!-- </ion-thumbnail> -->
+            </ion-item>
+          </ion-list>
     </div>
 </div>
